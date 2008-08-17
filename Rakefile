@@ -56,4 +56,12 @@ Rake::TestTask.new(:test) do |test|
   test.test_files = Dir['test/test_*.rb']
 end
 
+task :github do
+  require 'rubygems/specification'
+  data = File.read('fluby.gemspec')
+  github_spec = nil
+  Thread.new { github_spec = eval("$SAFE = 3\n#{data}") }.join
+  puts github_spec
+end
+
 task :default => [ :install ]

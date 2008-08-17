@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
-  s.name                  = 'fluby'
-  s.version               = '0.5.7'
+  s.name                  = Fluby::NAME
+  s.version               = Fluby::VERSION
   s.platform              = Gem::Platform::RUBY
   s.summary               = 'A simple command to create an empty project for MTASC + SWFMILL + Rake'
   s.description           = s.summary
@@ -13,7 +13,18 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.8.5'
 
   s.has_rdoc              = false
-  s.files                 = FileList.new("README.mdown","Rakefile","bin/**/*","lib/**/*").to_a
+  s.files                 = [
+    "README.mdown",
+    "Rakefile",
+    "bin/fluby",
+    "lib/fluby.rb",
+    "lib/templates/ASClass.as",
+    "lib/templates/index.rhtml",
+    "lib/templates/project.rxml",
+    "lib/templates/Rakefile",
+    "lib/templates/README",
+    "lib/templates/swfobject.js"
+  ]
   s.executables           = [ 'fluby' ]
   s.require_path          = 'lib'
   s.bindir                = 'bin'
