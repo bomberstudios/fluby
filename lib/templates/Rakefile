@@ -47,7 +47,7 @@ task :compile do
   end
 end
 
-<% if RUBY_PLATFORM =~ /darwin/ %>
+<% if Fluby.has_growl? %>
 task :notify do
   msg = "Finished compiling in #{@end - @start}s."
   if @nodebug
@@ -61,12 +61,14 @@ task :nodebug do
   @nodebug = true
 end
 
+<% if Fluby.is_mac? %>
 desc "Test the SWF file in your default browser"
 task :test => [:compile] do
   %x(open deploy/index.html)
 end
+<% end %>
 
-<% if RUBY_PLATFORM =~ /darwin/ %>
+<% if Fluby.has_growl? %>
 desc "Build a release version of <%= @project_name %> (with trace() disabled)"
 task :release => [:nodebug,:compile,:notify]
 

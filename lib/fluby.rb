@@ -1,11 +1,12 @@
 module Fluby
   NAME    = 'fluby'
-  VERSION = '0.5.6'
+  VERSION = '0.5.7'
 
   def self.create_project(name)
     require "fileutils"
     require "erb"
 
+    # TODO: Support project creation in subfolders (i.e: fluby test/project)
     @project_name = name
     @project_folder = FileUtils.pwd + "/" + @project_name
 
@@ -46,5 +47,13 @@ module Fluby
     open("#{@project_folder}/#{destination}","w") do |f|
       f << ERB.new(IO.read("#{File.dirname(__FILE__)}/templates/#{source}")).result(binding)
     end
+  end
+
+  def self.is_mac?
+    return RUBY_PLATFORM =~ /darwin/
+  end
+
+  def self.has_growl?
+    return is_mac? && !`which "growlnotify"`.empty?
   end
 end

@@ -28,7 +28,7 @@ spec = Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.8.5'
 
   s.has_rdoc              = false
-  s.files                 = FileList.new("README","Rakefile","bin/**/*","lib/**/*").to_a
+  s.files                 = FileList.new("README.mdown","Rakefile","bin/**/*","lib/**/*").to_a
   s.executables           = [ 'fluby' ]
   s.require_path          = 'lib'
   s.bindir                = 'bin'

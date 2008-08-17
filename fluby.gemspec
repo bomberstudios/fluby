@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name                  = 'fluby'
-  s.version               = '0.5.6'
+  s.version               = '0.5.7'
   s.platform              = Gem::Platform::RUBY
   s.summary               = 'A simple command to create an empty project for MTASC + SWFMILL + Rake'
   s.description           = s.summary
