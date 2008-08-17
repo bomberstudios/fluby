@@ -1,14 +1,6 @@
-require 'rake'
-
-require 'rake/clean'
-require 'rake/gempackagetask'
-require 'rake/testtask'
-
-require File.dirname(__FILE__) + '/lib/fluby.rb'
-
 Gem::Specification.new do |s|
-  s.name                  = Fluby::NAME
-  s.version               = Fluby::VERSION
+  s.name                  = 'fluby'
+  s.version               = '0.5.7'
   s.platform              = Gem::Platform::RUBY
   s.summary               = 'A simple command to create an empty project for MTASC + SWFMILL + Rake'
   s.description           = s.summary
