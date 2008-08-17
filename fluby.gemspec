@@ -1,11 +1,3 @@
-require 'rake'
-
-require 'rake/clean'
-require 'rake/gempackagetask'
-require 'rake/testtask'
-
-require File.dirname(__FILE__) + '/lib/fluby.rb'
-
 Gem::Specification.new do |s|
   s.name                  = Fluby::NAME
   s.version               = Fluby::VERSION
