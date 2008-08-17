@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# Fluby Generator <http://fluby.googlecode.com>
+# Handcrafted with love by bomberstudios & mamuso
+# 2008-03-16
+
+require File.dirname(__FILE__) + '/../lib/fluby.rb'
+
+# Display help
+if ARGV[0].nil?
+  puts "Fluby v#{Fluby::VERSION}"
+  puts "Usage: fluby project_name"
+  exit
+end
+
+Fluby.create_project(ARGV[0])

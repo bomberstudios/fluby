@@ -1,0 +1,6 @@
+0.5.6
+-----
+
+* Added support for multiple weights of a font family (thanks mamuso)
+* Fixed a bug on the project Rakefile that made it imposible to add assets (the SWF was overwritten by MTASC after swfmill imported the assets)
+* Improved documentation (just a little bit :)
