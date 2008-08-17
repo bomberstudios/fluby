@@ -1,4 +1,5 @@
-fluby
-=====
+# fluby
 
-A simple command to create an empty project for MTASC + SWFMILL + Rake
+A simple command to create an empty ActionScript project for MTASC + SWFMILL + Rake
+
+This is a github copy of [the original project in Google Code](http://code.google.com/p/fluby/)
