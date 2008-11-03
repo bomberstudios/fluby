@@ -1,3 +1,6 @@
+require "erb"
+require "fileutils"
+
 module Fluby
   NAME    = 'fluby'
   VERSION = '0.5.8'
@@ -13,6 +16,7 @@ module Fluby
     :white => "\033[0;37m",
     :whitebold => "\033[1;37m"
   }
+  PATH = File.expand_path(__FILE__)
 
   def self.create_project(name)
     require "fileutils"
@@ -30,7 +34,7 @@ module Fluby
       puts "#{COLORS[:red]}please choose a different name for your project"
       exit
     end
-    FileUtils.mkdir [@project_folder,"#{@project_folder}/deploy","#{@project_folder}/assets"]
+    FileUtils.mkdir [@project_folder,"#{@project_folder}/deploy","#{@project_folder}/assets","#{@project_folder}/script"]
 
     # Make files
     ["Rakefile","README"].each do |file|
@@ -45,6 +49,13 @@ module Fluby
     # Main Class
     render_template "ASClass.as", "#{@project_name}.as"
 
+    # script/generate
+    render_template "generate", "script/generate"
+    %x(chmod 755 "#{@project_folder}/script/generate")
+
+    if in_textmate?
+      puts "Oh, my, what a nice editor you're using"
+    end
   end
 
   def self.copy_template source, destination=nil
@@ -52,7 +63,7 @@ module Fluby
       destination = source
     end
     FileUtils.cp "#{File.dirname(__FILE__)}/templates/#{source}", "#{@project_folder}/#{destination}"
-    log "#{@project_name}/#{destination}"
+    log "create", "#{@project_name}/#{destination}"
   end
 
   def self.render_template source, destination=nil
@@ -62,11 +73,16 @@ module Fluby
     open("#{@project_folder}/#{destination}","w") do |f|
       f << ERB.new(IO.read("#{File.dirname(__FILE__)}/templates/#{source}")).result(binding)
     end
-    log "#{@project_name}/#{destination}"
+    log "create", "#{@project_name}/#{destination}"
   end
 
-  def self.log string
-    puts "    #{COLORS[:white]}Creating #{COLORS[:cyan]}#{string}#{COLORS[:white]}"
+  def self.log type, string
+    case type
+    when "alert"
+      puts "\t#{COLORS[:red]}Alert:\t#{string}#{COLORS[:white]}"
+    when "create"
+      puts "\t#{COLORS[:white]}Created:\t#{COLORS[:cyan]}#{string}#{COLORS[:white]}"
+    end
   end
 
   def self.in_textmate?
@@ -85,5 +101,33 @@ module Fluby
 
   def self.has_growl?
     return is_mac? && !`which "growlnotify"`.empty?
+  end
+
+  # these functions are used by script/generate
+  def self.generate(type, name, options={})
+    target_path = File.dirname(name.split(".").join("/").to_s)
+    target_file = name.split(".").join("/") + ".as".to_s
+    if File.exist?(target_file)
+      log "alert", "File #{target_file} already exists!"
+      return
+    end
+    FileUtils.mkdir_p target_path unless File.exist? target_path
+    @classpath = target_path.split("/").join(".")
+    @classname = name.split(".").last
+    @opts = options
+    File.open(target_file,"w") do |file|
+      file << ERB.new(File.read("#{template_path}/generators/#{type}")).result(binding)
+    end
+    log "create", "#{target_path}/#{@classname}.as"
+  end
+
+  def self.path
+    File.dirname(PATH)
+  end
+  def self.template_path
+    path + "/templates"
+  end
+  def self.available_templates
+    return Dir["#{template_path}/generators/**"].map { |i| i = File.basename(i) }
   end
 end
