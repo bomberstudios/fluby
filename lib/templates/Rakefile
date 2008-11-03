@@ -1,12 +1,12 @@
+require "erb"
+require 'rake/packagetask'
+
 WIDTH = 725
 HEIGHT = 480
 FPS = 31
 PLAYER = 8
 BGCOLOR = "#ffffff"
 APP = "<%= @project_name %>"
-
-require "erb"
-require 'rake/packagetask'
 
 def render_template(file)
   filename = File.basename(file).split(".")[0]
@@ -37,13 +37,13 @@ task :compile do
     end
   end
   puts %x(swfmill simple #{APP}.xml #{APP}.swf)
-  rm "#{APP}.xml"
+  rm "#{APP}.xml", {:verbose => false}
   puts %x(mtasc -swf #{APP}.swf -main -mx -version #{PLAYER} #{trace} #{APP}.as)
   @end = Time.now
 
   ["*.html","*.swf"].each do |list|
     Dir[list].each do |file|
-      mv file, "deploy/#{file}"
+      mv file, "deploy/#{file}", {:verbose => false}
     end
   end
 end
