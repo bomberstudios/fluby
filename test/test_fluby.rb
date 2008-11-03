@@ -47,11 +47,19 @@ class TestLibFluby < Test::Unit::TestCase
     end
   end
 
-  def test_generator_with_options
+  def test_generator_with_single_option
+    in_folder(PROJECT) do
+      Fluby.generate "class", "com.bomberstudios.ClassTest", "foo:String"
+      assert File.exist?("com/bomberstudios/ClassTest.as")
+      assert_not_nil File.read("com/bomberstudios/ClassTest.as").match("var foo:String;")
+    end
+  end
+  def test_generator_with_multiple_options
     in_folder(PROJECT) do
       Fluby.generate "class", "com.bomberstudios.ClassTest", "foo:String bar:XML"
       assert File.exist?("com/bomberstudios/ClassTest.as")
       assert_not_nil File.read("com/bomberstudios/ClassTest.as").match("var foo:String;")
+      assert_not_nil File.read("com/bomberstudios/ClassTest.as").match("var bar:XML;")
     end
   end
 
