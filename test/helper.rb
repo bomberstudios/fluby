@@ -1,7 +1,9 @@
 require "lib/fluby"
 PROJECT = "TestProject"
+APP = PROJECT
 @project_name = PROJECT
 @project_folder = @project_name
+
 def global_setup
   make_project PROJECT
 end

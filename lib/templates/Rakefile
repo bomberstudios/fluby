@@ -6,6 +6,7 @@ BGCOLOR = "#ffffff"
 APP = "<%= @project_name %>"
 
 require "erb"
+require 'rake/packagetask'
 
 def render_template(file)
   filename = File.basename(file).split(".")[0]
@@ -45,6 +46,12 @@ task :compile do
       mv file, "deploy/#{file}"
     end
   end
+end
+
+Rake::PackageTask.new(APP, :noversion) do |p|
+  p.need_zip = true
+  p.name = Time.now.strftime("%Y%m%d") + "-" + APP
+  p.package_files.include("README",Dir["deploy/*"])
 end
 
 <% if Fluby.has_growl? %>

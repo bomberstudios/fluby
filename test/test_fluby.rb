@@ -1,3 +1,4 @@
+require "fileutils"
 require "test/unit"
 require "test/helper"
 require "lib/fluby"
@@ -29,5 +30,13 @@ class TestLibFluby < Test::Unit::TestCase
 
   def test_file_contents
     assert_equal ERB.new(IO.read("lib/templates/README")).result, File.read("#{PROJECT}/README")
+    assert_equal ERB.new(IO.read("lib/templates/Rakefile")).result, File.read("#{PROJECT}/Rakefile")
+    assert_equal ERB.new(IO.read("lib/templates/ASClass.as")).result, File.read("#{PROJECT}/#{PROJECT}.as")
+  end
+
+  def test_package
+    %x(cd #{PROJECT};rake package;)
+    now = Time.now.strftime("%Y%m%d")
+    assert File.exist?("#{PROJECT}/pkg/#{now}-#{PROJECT}.zip")
   end
 end

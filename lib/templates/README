@@ -48,4 +48,4 @@ Then, in your code, you'd use the fonts like this:
     txtest.text = "This is italics";
 
 --- 
-Created: <%= Time.now %>
+Created: <%= Time.now.strftime("%Y%m%d") %>
