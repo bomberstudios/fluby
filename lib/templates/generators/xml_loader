@@ -1,8 +1,8 @@
-class com.bomberstudios.xml.Loader {
+class <%= @classpath %>.<%= @classname %> {
   var _path:String;
   var raw_data:XML;
 
-  function Loader(path:String,callback:Function){
+  function <%= @classname %>(path:String,callback:Function){
     _path = path;
     raw_data = new XML();
     raw_data.ignoreWhite = true;
