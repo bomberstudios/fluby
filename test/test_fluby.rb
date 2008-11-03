@@ -38,6 +38,11 @@ class TestLibFluby < Test::Unit::TestCase
     %x(cd #{PROJECT};rake compile;)
     assert File.exist?("#{PROJECT}/deploy/#{PROJECT}.swf")
   end
+
+  def test_generator
+    %x(cd #{PROJECT};script/generate xml_loader com.bomberstudios.xml.Loader)
+    assert File.exist?("#{PROJECT}/com/bomberstudios/xml/Loader.as")
+  end
   def test_package
     %x(cd #{PROJECT};rake package;)
     now = Time.now.strftime("%Y%m%d")
