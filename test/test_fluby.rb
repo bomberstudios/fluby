@@ -1,8 +1,5 @@
-require "fileutils"
-require "test/unit"
 require "test/helper"
-require "lib/fluby"
-require "erb"
+require "test/unit"
 
 class TestLibFluby < Test::Unit::TestCase
   def setup
@@ -35,17 +32,35 @@ class TestLibFluby < Test::Unit::TestCase
   end
 
   def test_compilation
-    %x(cd #{PROJECT};rake compile;)
-    assert File.exist?("#{PROJECT}/deploy/#{PROJECT}.swf")
+    in_folder(PROJECT) do
+      %x(rake compile)
+      assert File.exist?("deploy/#{PROJECT}.swf"), "Compilation failed. Have you installed mtasc and swfmill?"
+    end
   end
 
   def test_generator
-    %x(cd #{PROJECT};script/generate xml_loader com.bomberstudios.xml.Loader)
-    assert File.exist?("#{PROJECT}/com/bomberstudios/xml/Loader.as")
+    in_folder(PROJECT) do
+      Fluby.available_templates.each do |tpl|
+        Fluby.generate tpl, "com.bomberstudios.#{tpl}"
+        assert File.exist?("com/bomberstudios/#{tpl}.as"), "Error generating #{tpl}"
+      end
+    end
   end
+
+  def test_available_templates
+    assert_equal Dir["lib/templates/generators/*"].size, Fluby.available_templates.size, "Template count mismatch"
+    in_folder PROJECT do
+      templates = %x(script/generate)
+      tpl_list = Fluby.available_templates.join("\n\t")
+      assert_equal "Usage: script/generate type classpath [options]\nwhere type is one of\n\t#{tpl_list}\n", templates
+    end
+  end
+
   def test_package
-    %x(cd #{PROJECT};rake package;)
-    now = Time.now.strftime("%Y%m%d")
-    assert File.exist?("#{PROJECT}/pkg/#{now}-#{PROJECT}.zip")
+    in_folder(PROJECT) do
+      %x(rake package)
+      now = Time.now.strftime("%Y%m%d")
+      assert File.exist?("pkg/#{now}-#{PROJECT}.zip")
+    end
   end
 end
