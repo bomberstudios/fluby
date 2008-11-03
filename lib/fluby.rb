@@ -30,7 +30,7 @@ module Fluby
       puts "#{COLORS[:red]}please choose a different name for your project"
       exit
     end
-    FileUtils.mkdir [@project_folder,"#{@project_folder}/deploy","#{@project_folder}/assets"]
+    FileUtils.mkdir [@project_folder,"#{@project_folder}/deploy","#{@project_folder}/assets","#{@project_folder}/script"]
 
     # Make files
     ["Rakefile","README"].each do |file|
@@ -45,6 +45,13 @@ module Fluby
     # Main Class
     render_template "ASClass.as", "#{@project_name}.as"
 
+    # script/generate
+    render_template "generate", "script/generate"
+    %x(chmod 755 "#{@project_folder}/script/generate")
+
+    if in_textmate?
+      puts "Oh, my, what a nice editor you're using"
+    end
   end
 
   def self.copy_template source, destination=nil
@@ -86,4 +93,23 @@ module Fluby
   def self.has_growl?
     return is_mac? && !`which "growlnotify"`.empty?
   end
+
+  # these functions are used by script/generate
+  def self.generate type, name, options
+    log type
+  end
+
+  def self.path
+    File.dirname(__FILE__)
+  end
+  def self.template_path
+    path + "/templates"
+  end
+  def self.available_templates
+    templates = {}
+    Dir["#{template_path}/generators/**"].each do |file|
+      templates[File.basename(file)] = file
+    end
+  end
+
 end
