@@ -64,4 +64,8 @@ task :github do
   puts github_spec
 end
 
+task :test do
+  %x(ruby test/test_fluby.rb)
+end
+
 task :default => [ :install ]
