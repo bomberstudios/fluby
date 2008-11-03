@@ -68,4 +68,4 @@ task :test do
   %x(ruby test/test_fluby.rb)
 end
 
-task :default => [ :install ]
+task :default => [ :test ]
