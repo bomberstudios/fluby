@@ -16,6 +16,7 @@ module Fluby
     :white => "\033[0;37m",
     :whitebold => "\033[1;37m"
   }
+  PATH = File.expand_path(__FILE__)
 
   def self.create_project(name)
     require "fileutils"
@@ -103,7 +104,7 @@ module Fluby
   end
 
   # these functions are used by script/generate
-  def self.generate(type, name, options=nil)
+  def self.generate(type, name, options={})
     target_path = File.dirname(name.split(".").join("/").to_s)
     target_file = name.split(".").join("/") + ".as".to_s
     if File.exist?(target_file)
@@ -113,6 +114,7 @@ module Fluby
     FileUtils.mkdir_p target_path unless File.exist? target_path
     @classpath = target_path.split("/").join(".")
     @classname = name.split(".").last
+    @opts = options
     File.open(target_file,"w") do |file|
       file << ERB.new(File.read("#{template_path}/generators/#{type}")).result(binding)
     end
@@ -120,15 +122,12 @@ module Fluby
   end
 
   def self.path
-    File.dirname(__FILE__)
+    File.dirname(PATH)
   end
   def self.template_path
     path + "/templates"
   end
   def self.available_templates
-    templates = {}
-    Dir["#{template_path}/generators/**"].each do |file|
-      templates[File.basename(file)] = file
-    end
+    return Dir["#{template_path}/generators/**"].map { |i| i = File.basename(i) }
   end
 end
