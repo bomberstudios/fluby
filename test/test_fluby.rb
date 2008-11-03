@@ -34,6 +34,10 @@ class TestLibFluby < Test::Unit::TestCase
     assert_equal ERB.new(IO.read("lib/templates/ASClass.as")).result, File.read("#{PROJECT}/#{PROJECT}.as")
   end
 
+  def test_compilation
+    %x(cd #{PROJECT};rake compile;)
+    assert File.exist?("#{PROJECT}/deploy/#{PROJECT}.swf")
+  end
   def test_package
     %x(cd #{PROJECT};rake package;)
     now = Time.now.strftime("%Y%m%d")
