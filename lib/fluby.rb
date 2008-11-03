@@ -114,6 +114,7 @@ module Fluby
     FileUtils.mkdir_p target_path unless File.exist? target_path
     @classpath = target_path.split("/").join(".")
     @classname = name.split(".").last
+    options = options.split(" ").map { |i| i = i.split(":") } unless options == {}
     @opts = options
     File.open(target_file,"w") do |file|
       file << ERB.new(File.read("#{template_path}/generators/#{type}")).result(binding)

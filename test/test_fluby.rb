@@ -47,6 +47,14 @@ class TestLibFluby < Test::Unit::TestCase
     end
   end
 
+  def test_generator_with_options
+    in_folder(PROJECT) do
+      Fluby.generate "class", "com.bomberstudios.ClassTest", "foo:String bar:XML"
+      assert File.exist?("com/bomberstudios/ClassTest.as")
+      assert_not_nil File.read("com/bomberstudios/ClassTest.as").match("var foo:String;")
+    end
+  end
+
   def test_available_templates
     assert_equal Dir["lib/templates/generators/*"].size, Fluby.available_templates.size, "Template count mismatch"
     in_folder PROJECT do
