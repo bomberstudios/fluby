@@ -2,4 +2,33 @@
 
 A simple command to create an empty ActionScript project for MTASC + SWFMILL + Rake
 
+## Installation
+
+    gem install fluby
+
+Fluby requires the 'mtasc' and 'swfmill' executables somewhere on your path.
+
+
+## Usage
+
+To create a new project:
+
+    fluby ProjectName
+
+To compile your brand new project:
+
+    cd ProjectName
+    rake
+
+That should generate a 'ProjectName.swf' file on the 'deploy' folder. The SWF file is debug-enabled (i.e: you can see the trace() output if you have a debug Flash Player). If you want to release your project without debug information, run
+
+    rake release
+
+There are other rake tasks available:
+
+    rake package  # Creates a ZIP file containing your SWF file on the 'pkg' folder
+    rake test # Opens a HTML file with your SWF for testing on your default browser (available on Mac only)
+
+## Notes
+
 This is a github copy of [the original project in Google Code](http://code.google.com/p/fluby/)
