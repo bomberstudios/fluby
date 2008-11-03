@@ -1,4 +1,6 @@
 require "lib/fluby"
+require "fileutils"
+require "erb"
 require "stringio"
 
 PROJECT = "TestProject"
@@ -27,4 +29,10 @@ def global_teardown
 end
 def make_project(name)
   Fluby.create_project(name)
+end
+
+def in_folder(name)
+  FileUtils.cd(name) do
+    yield
+  end
 end
