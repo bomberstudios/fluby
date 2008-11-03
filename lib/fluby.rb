@@ -108,7 +108,7 @@ module Fluby
     target_file = name.split(".").join("/") + ".as".to_s
     if File.exist?(target_file)
       log "alert", "File #{target_file} already exists!"
-      exit
+      return
     end
     FileUtils.mkdir_p target_path unless File.exist? target_path
     @classpath = target_path.split("/").join(".")
