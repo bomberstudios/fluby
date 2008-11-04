@@ -1,7 +1,7 @@
 class <%= @classpath %>.<%= @classname %> {
-<% @opts.each do |option| %>
-  var <%= option[0] %>:<%= option[1] %>;
+<% @opts.each do |option| %>  var <%= option[0] %>:<%= option[1] %>;
 <% end %>
   function <%= @classname %>(){
+    // Init class
   }
 }
