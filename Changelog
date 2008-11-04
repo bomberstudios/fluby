@@ -2,6 +2,10 @@
 -----
 * Support for user templates
 
+0.6.1
+-----
+* Added 'delegate' template for script/generate
+
 0.6
 ---
 * Added colorized output to terminal operations

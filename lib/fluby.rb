@@ -3,7 +3,7 @@ require "fileutils"
 
 module Fluby
   NAME    = 'fluby'
-  VERSION = '0.6'
+  VERSION = '0.6.1'
 
   COLORS = {
     :black => "\033[0;30m",
