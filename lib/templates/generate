@@ -12,7 +12,6 @@ if commandline.size < 2
 else
   type = commandline.shift
   name = commandline.shift
-  options = commandline.to_s
-
+  options = commandline
   Fluby.generate(type,name,options)
 end
