@@ -2,8 +2,8 @@
 -----
 * Support for user templates
 
-0.5.8*
------
+0.6
+---
 * Added colorized output to terminal operations
 * Added 'rake package' task
 * Added 'script/generate' tool to generate common classes (right now there's only a 'xml_loader' template)
