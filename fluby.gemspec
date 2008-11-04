@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name                  = 'fluby'
-  s.version               = '0.6'
+  s.version               = '0.6.1'
   s.platform              = Gem::Platform::RUBY
   s.summary               = 'A simple command to create an empty ActionScript project for MTASC + SWFMILL + Rake'
   s.description           = s.summary
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "lib/templates/swfobject.js",
     "lib/templates/generate",
     "lib/templates/generators/class",
+    "lib/templates/generators/delegate",
     "lib/templates/generators/xml_loader"
   ]
   s.executables           = [ 'fluby' ]
