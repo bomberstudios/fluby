@@ -68,4 +68,11 @@ task :test do
   %x(ruby test/test_fluby.rb)
 end
 
+task :rcov do
+  rm_f "coverage"
+  rm_f "coverage.data"
+  rcov = "rcov --exclude gem --aggregate coverage.data --text-summary -Ilib"
+  system("#{rcov} --no-html test/*")
+end
+
 task :default => [ :test ]

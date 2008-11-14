@@ -1,7 +1,10 @@
 require "test/helper"
 require "test/unit"
+# TODO: test log
+# TODO: test install
 
-class TestLibFluby < Test::Unit::TestCase
+class TestFluby < Test::Unit::TestCase
+
   def setup
     global_setup
   end
@@ -16,6 +19,11 @@ class TestLibFluby < Test::Unit::TestCase
 
   def test_project_creation
     assert_not_nil File.exist?(PROJECT)
+  end
+  def test_error_creating_existing_project
+    assert_raise RuntimeError do
+      make_project PROJECT
+    end
   end
 
   def test_files_are_created_ok
@@ -46,7 +54,6 @@ class TestLibFluby < Test::Unit::TestCase
       end
     end
   end
-
   def test_generator_with_single_option
     in_folder(PROJECT) do
       Fluby.generate "class", "com.bomberstudios.ClassTest", "foo:String"
@@ -71,6 +78,14 @@ class TestLibFluby < Test::Unit::TestCase
       assert_not_nil File.read("com/bomberstudios/Car.as").match("var year:Number;")
     end
   end
+  def test_error_creating_existing_template
+    in_folder(PROJECT) do
+      assert_raise RuntimeError do
+        Fluby.generate "class", "com.bomberstudios.ClassTest", ["foo:String", "bar:XML"]
+        Fluby.generate "class", "com.bomberstudios.ClassTest", ["foo:String", "bar:XML"]
+      end
+    end
+  end
 
   def test_available_templates
     assert_equal Dir["lib/templates/generators/*"].size, Fluby.available_templates.size, "Template count mismatch"
@@ -79,6 +94,10 @@ class TestLibFluby < Test::Unit::TestCase
       tpl_list = Fluby.available_templates.join("\n\t")
       assert_equal "Usage: script/generate type classpath [options]\nwhere type is one of\n\t#{tpl_list}\n", templates
     end
+  end
+
+  def test_textmate
+    assert !Fluby.in_textmate?
   end
 
   def test_package

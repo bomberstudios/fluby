@@ -32,7 +32,7 @@ module Fluby
     if File.exist? @project_folder
       puts "#{COLORS[:red]}Folder #{@project_name} already exists,"
       puts "#{COLORS[:red]}please choose a different name for your project"
-      exit
+      raise RuntimeError
     end
     FileUtils.mkdir [@project_folder,"#{@project_folder}/deploy","#{@project_folder}/assets","#{@project_folder}/script"]
 
@@ -53,9 +53,6 @@ module Fluby
     render_template "generate", "script/generate"
     %x(chmod 755 "#{@project_folder}/script/generate")
 
-    if in_textmate?
-      puts "Oh, my, what a nice editor you're using"
-    end
   end
 
   def self.copy_template source, destination=nil
@@ -109,7 +106,7 @@ module Fluby
     target_file = name.split(".").join("/") + ".as".to_s
     if File.exist?(target_file)
       log "alert", "File #{target_file} already exists!"
-      return
+      raise RuntimeError
     end
     FileUtils.mkdir_p target_path unless File.exist? target_path
     @classpath = target_path.split("/").join(".")
