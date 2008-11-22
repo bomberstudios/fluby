@@ -68,6 +68,28 @@ task :nodebug do
   @nodebug = true
 end
 
+task :monitor do
+  command = "rake"
+  files = {}
+
+  Dir["*.as","*.rxml","*.rhtml","Rakefile"].each { |file|
+    files[file] = File.mtime(file)
+  }
+
+  loop do
+    sleep 1
+    changed_file, last_changed = files.find { |file, last_changed|
+      File.mtime(file) > last_changed
+    }
+    if changed_file
+      files[changed_file] = File.mtime(changed_file)
+      puts "=> #{changed_file} changed, running #{command}"
+      system(command)
+      puts "=> done"
+    end
+  end
+end
+
 <% if Fluby.is_mac? %>
 desc "Test the SWF file in your default browser"
 task :test => [:compile] do
@@ -84,5 +106,5 @@ task :default => [:compile,:notify,:test]
 desc "Build a release version of <%= @project_name %> (with trace() disabled)"
 task :release => [:nodebug,:compile]
 
-task :default => [:compile,:test]
+task :default => [:compile]
 <% end %>
