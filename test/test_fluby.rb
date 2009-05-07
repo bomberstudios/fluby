@@ -30,7 +30,7 @@ class TestFluby < Test::Unit::TestCase
     assert_equal 1, Dir["#{PROJECT}/*.as"].size
     assert_equal 1, Dir["#{PROJECT}/*.rxml"].size
     assert_equal 1, Dir["#{PROJECT}/*.rhtml"].size
-    assert_equal 1, Dir["#{PROJECT}/deploy/swfobject.js"].size
+    assert_equal 1, Dir["#{PROJECT}/assets/swfobject.js"].size
   end
 
   def test_file_contents
