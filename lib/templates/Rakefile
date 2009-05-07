@@ -105,12 +105,10 @@ end
 
 <% if Fluby.has_growl? %>
 desc "Build a release version of <%= @project_name %> (with trace() disabled)"
-task :release => [:nodebug,:compile,:notify]
-
+task :release => [:nodebug,:compile,:pack,:notify]
 task :default => [:compile,:notify,:test]
 <% else %>
 desc "Build a release version of <%= @project_name %> (with trace() disabled)"
-task :release => [:nodebug,:compile]
-
-task :default => [:compile]
+task :release => [:nodebug,:compile,:pack]
+task :default => [:compile,:test]
 <% end %>
