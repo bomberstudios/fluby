@@ -23,7 +23,13 @@ def render_template(file)
   end
 end
 
-task :compile do
+task :assets do
+  Dir.glob(['assets/*.js','assets/*.xml']).each do |file|
+    cp file, "deploy/#{File.basename(file)}", :verbose => true
+  end
+end
+
+task :compile => [:assets] do
   if @nodebug
     puts "Trace disabled"
     trace = " -trace no"
