@@ -44,7 +44,7 @@ module Fluby
     # Static Templates
     copy_template "index.rhtml"
     copy_template "project.rxml", "#{@project_name}.rxml"
-    copy_template "swfobject.js", "deploy/swfobject.js"
+    copy_template "swfobject.js", "assets/swfobject.js"
 
     # Main Class
     render_template "ASClass.as", "#{@project_name}.as"
