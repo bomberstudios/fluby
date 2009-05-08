@@ -56,16 +56,20 @@ Rake::TestTask.new(:test) do |test|
   test.test_files = Dir['test/test_*.rb']
 end
 
+desc 'Test if the gem will build on Github'
 task :github do
+  require 'yaml'
   require 'rubygems/specification'
   data = File.read('fluby.gemspec')
-  github_spec = nil
-  Thread.new { github_spec = eval("$SAFE = 3\n#{data}") }.join
-  puts github_spec
-end
-
-task :test do
-  %x(ruby test/test_fluby.rb)
+  spec = nil
+  if data !~ %r{!ruby/object:Gem::Specification}
+    Thread.new { spec = eval("$SAFE = 3\n#{data}") }.join
+  else
+    spec = YAML.load(data)
+  end
+  spec.validate
+  puts spec
+  puts "OK"
 end
 
 task :rcov do
