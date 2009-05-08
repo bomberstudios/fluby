@@ -2,8 +2,8 @@ Gem::Specification.new do |s|
   s.name                  = 'fluby'
   s.version               = '0.6.4'
   s.platform              = Gem::Platform::RUBY
-  s.summary               = 'A simple command to create an empty ActionScript project for MTASC + SWFMILL + Rake'
-  s.description           = s.summary
+  s.summary               = 'MTASC + SWFMILL + Rake helper'
+  s.description           = 'A simple command to create an empty ActionScript project for MTASC + SWFMILL + Rake'
   s.homepage              = 'http://github.com/bomberstudios/fluby/'
   s.author                = 'Ale Muñoz'
   s.email                 = 'bomberstudios@gmail.com'
