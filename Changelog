@@ -2,6 +2,15 @@
 -----
 * Support for user templates
 
+0.6.4
+-----
+* Added 'rake monitor' task to fluby project, so the project autocompiles whenever you save the main .as file or any of the auxiliary files (index.rhtml, project.rxml or Rakefile)
+* Added :assets task to fluby Rakefile. js and xml files in the 'assets' folder are copied to the 'deploy' folder when compiling.
+* Run 'pack' task when running 'rake release'
+* Create swfobject.js in 'assets' folder instead of 'deploy'
+* Added Video asset to the rxml template. It's commented out in case you don't need it, but it's nice to have it there as I always forget the syntax :)
+* Use packed swfobject.js
+
 0.6.1
 -----
 * Added 'delegate' template for script/generate
