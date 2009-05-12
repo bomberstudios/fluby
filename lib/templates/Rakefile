@@ -103,6 +103,19 @@ task :test => [:compile] do
 end
 <% end %>
 
+desc "Install debug support files"
+task :setup_debug do
+  debug_cfg_file = "/Library/Application\ Support/Macromedia/mm.cfg"
+  %x(touch "#{debug_cfg_file}")
+  File.open(debug_cfg_file,"w") do |f|
+    f <<-EOF
+ErrorReportingEnable=1
+TraceOutputFileEnable=1
+EOF
+  end unless File.exist?(debug_cfg_file)
+  %x(touch "$HOME/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt")
+end
+
 <% if Fluby.has_growl? %>
 desc "Build a release version of <%= @project_name %> (with trace() disabled)"
 task :release => [:nodebug,:compile,:pack,:notify]
