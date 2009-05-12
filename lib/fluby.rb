@@ -34,7 +34,7 @@ module Fluby
       puts "#{COLORS[:red]}please choose a different name for your project"
       raise RuntimeError
     end
-    FileUtils.mkdir [@project_folder,"#{@project_folder}/deploy","#{@project_folder}/assets","#{@project_folder}/script"]
+    FileUtils.mkdir [@project_folder,"#{@project_folder}/deploy","#{@project_folder}/assets","#{@project_folder}/script"], :verbose => false
 
     # Make files
     ["Rakefile","README"].each do |file|
@@ -59,7 +59,7 @@ module Fluby
     if destination.nil?
       destination = source
     end
-    FileUtils.cp "#{File.dirname(__FILE__)}/templates/#{source}", "#{@project_folder}/#{destination}"
+    FileUtils.cp "#{File.dirname(__FILE__)}/templates/#{source}", "#{@project_folder}/#{destination}", :verbose => false
     log "create", "#{@project_name}/#{destination}"
   end
 
