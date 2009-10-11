@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Ale Mu\303\261oz"]
   s.date = %q{2009-10-11}
   s.default_executable = %q{fluby}
-  s.description = %q{A simple command to create an empty ActionScript project for MTASC + SWFMILL + Rake}
+  s.description = %q{A simple command to create and compile an ActionScript project for MTASC + SWFMILL + Rake}
   s.email = %q{bomberstudios@gmail.com}
   s.executables = ["fluby"]
   s.extra_rdoc_files = [

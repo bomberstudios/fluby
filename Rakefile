@@ -11,7 +11,7 @@ begin
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "fluby"
     gemspec.summary = "MTASC + SWFMILL + Rake helper"
-    gemspec.description = "A simple command to create an empty ActionScript project for MTASC + SWFMILL + Rake"
+    gemspec.description = "A simple command to create and compile an ActionScript project for MTASC + SWFMILL + Rake"
     gemspec.email = "bomberstudios@gmail.com"
     gemspec.homepage = "http://github.com/bomberstudios/fluby"
     gemspec.authors = ["Ale Muñoz"]
@@ -56,4 +56,4 @@ task :rcov do
   sh "#{rcov} --no-html test/*", :verbose => false
 end
 
-task :default => [ :github, :test ]
+task :default => [ :github, :test, :gemspec, :release ]
