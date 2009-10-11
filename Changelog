@@ -2,6 +2,10 @@
 -----
 * Support for user templates
 
+0.7.0
+-----
+* Moved gem to gemcutter.org
+
 0.6.4
 -----
 * Added 'rake monitor' task to fluby project, so the project autocompiles whenever you save the main .as file or any of the auxiliary files (index.rhtml, project.rxml or Rakefile)

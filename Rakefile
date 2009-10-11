@@ -2,34 +2,30 @@
 
 require 'rake'
 require 'rake/clean'
-require 'rake/gempackagetask'
 require 'rake/testtask'
-
 require File.dirname(__FILE__) + '/lib/fluby.rb'
+
+##### Jeweler
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "fluby"
+    gemspec.summary = "MTASC + SWFMILL + Rake helper"
+    gemspec.description = "A simple command to create an empty ActionScript project for MTASC + SWFMILL + Rake"
+    gemspec.email = "bomberstudios@gmail.com"
+    gemspec.homepage = "http://github.com/bomberstudios/fluby"
+    gemspec.authors = ["Ale Muñoz"]
+    gemspec.rubyforge_project     = 'fluby'
+  end
+  Jeweler::GemcutterTasks.new
+  # release with: $ rake gemcutter:release
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
 
 ##### Cleaning
 CLEAN.include [ 'tmp', 'test/fixtures/*/output/*', 'test/fixtures/*/tmp' ]
 CLOBBER.include [ 'pkg', '*.gem', 'coverage.data' ]
-
-desc 'Build gem package'
-task :gem do
-  system('gem build fluby.gemspec')
-end
-
-desc 'Install gem'
-task :install => :gem do
-  if RUBY_PLATFORM =~ /mswin32/
-    system('cmd.exe /c rake package')
-    system("cmd.exe /c gem install pkg/#{Fluby::NAME}-#{Fluby::VERSION}")
-  else
-    system("sudo gem install pkg/#{Fluby::NAME}-#{Fluby::VERSION}")
-  end
-end
-
-desc 'Uninstall gem'
-task :uninstall do
-  sh %{sudo gem uninstall #{Fluby::NAME}}
-end
 
 ### Testing
 Rake::TestTask.new(:test) do |test|
