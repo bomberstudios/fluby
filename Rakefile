@@ -32,22 +32,6 @@ Rake::TestTask.new(:test) do |test|
   test.test_files = Dir['test/test_*.rb']
 end
 
-desc 'Test if the gem will build on Github'
-task :github do
-  require 'yaml'
-  require 'rubygems/specification'
-  data = File.read('fluby.gemspec')
-  spec = nil
-  if data !~ %r{!ruby/object:Gem::Specification}
-    Thread.new { spec = eval("$SAFE = 3\n#{data}") }.join
-  else
-    spec = YAML.load(data)
-  end
-  spec.validate
-  puts spec
-  puts "OK"
-end
-
 desc 'Test code coverage using rcov'
 task :rcov do
   rm_f "coverage"
@@ -56,4 +40,6 @@ task :rcov do
   sh "#{rcov} --no-html test/*", :verbose => false
 end
 
-task :default => [ :github, :test, :gemspec, :release ]
+task :default => [ :test, :gemspec ] do
+  system("gem build fluby.gemspec")
+end
