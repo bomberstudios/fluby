@@ -44,6 +44,6 @@ task :default => [ :test, :gemspec ] do
   %x(gem build fluby.gemspec)
 end
 
-task :release => [ :clobber, :default ] do
+task :push => [ :clobber, :default ] do
   %x(rake gemcutter:release)
 end
