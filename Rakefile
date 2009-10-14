@@ -43,3 +43,7 @@ end
 task :default => [ :test, :gemspec ] do
   system("gem build fluby.gemspec")
 end
+
+task :release => :default do
+  system("rake gemcutter:release")
+end
