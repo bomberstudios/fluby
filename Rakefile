@@ -40,10 +40,10 @@ task :rcov do
   sh "#{rcov} --no-html test/*", :verbose => false
 end
 
-task :default => [ :test, :gemspec ] do
-  %x(gem build fluby.gemspec)
-end
+desc "Test and package gem"
+task :default => [ :test, :gemspec, :build ]
 
+desc "Push GEM to Gemcutter"
 task :push => [ :clobber, :default ] do
   %x(rake gemcutter:release)
 end
