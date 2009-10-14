@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Ale Mu\303\261oz"]
-  s.date = %q{2009-10-11}
+  s.authors = ["Ale Muñoz"]
+  s.date = %q{2009-10-14}
   s.default_executable = %q{fluby}
   s.description = %q{A simple command to create and compile an ActionScript project for MTASC + SWFMILL + Rake}
   s.email = %q{bomberstudios@gmail.com}
