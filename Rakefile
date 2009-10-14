@@ -41,9 +41,9 @@ task :rcov do
 end
 
 task :default => [ :test, :gemspec ] do
-  system("gem build fluby.gemspec")
+  %x(gem build fluby.gemspec)
 end
 
-task :release => :default do
-  system("rake gemcutter:release")
+task :release => [ :clobber, :default ] do
+  %x(rake gemcutter:release)
 end
