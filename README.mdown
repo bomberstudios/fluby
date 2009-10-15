@@ -15,7 +15,7 @@ Fluby requires the 'mtasc' and 'swfmill' executables somewhere on your path.
 
 To create a new project:
 
-    fluby ProjectName
+    fluby create ProjectName
 
 
 ### Compilation
@@ -37,3 +37,11 @@ There are other rake tasks available:
     rake package  # Creates a ZIP file containing your SWF file on the 'pkg' folder
     rake test # Opens a HTML file with your SWF for testing on your default browser (available on Mac only)
 
+
+### Updating from old fluby versions
+
+If you have an existing project that uses fluby, you can update the code by running:
+
+    fluby update
+
+inside your project folder.
