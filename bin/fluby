@@ -3,7 +3,7 @@
 # Handcrafted with love by bomberstudios & mamuso
 # 2008-03-16
 
-actions = ['build','release','create','generate']
+actions = ['build','release','create','generate','update']
 
 require File.dirname(__FILE__) + '/../lib/fluby.rb'
 

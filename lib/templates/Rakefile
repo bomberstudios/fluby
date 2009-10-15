@@ -5,6 +5,7 @@ Rake::PackageTask.new("<%= @project_name %>", :noversion) do |p|
   p.need_zip = true
   p.name = Time.now.strftime("%Y%m%d") + "-" + "<%= @project_name %>"
   p.package_files.include("README",Dir["deploy/*"])
+  p.package_files.exclude(".DS_Store")
 end
 
 task :monitor do

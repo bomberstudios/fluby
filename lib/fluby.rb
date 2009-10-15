@@ -225,6 +225,18 @@ EOF
     
   end
 
+  # Migration
+  def self.update
+    @project_name = current_path.split('/').last
+    render_template "#{template_path}/config.yml", "#{current_path}/config.yml" unless File.exist?("#{current_path}/config.yml")
+    FileUtils.mv "#{current_path}/Rakefile", "#{current_path}/Rakefile.old"
+    render_template "#{template_path}/Rakefile", "#{current_path}/Rakefile"
+    FileUtils.mv "#{current_path}/index.rhtml", "#{current_path}/index.rhtml.old"
+    copy_template "#{template_path}/index.rhtml", "#{current_path}/index.rhtml"
+    FileUtils.mv "#{current_path}/#{@project_name}.rxml", "#{current_path}/#{@project_name}.rxml.old"
+    copy_template "#{template_path}/project.rxml", "#{current_path}/#{@project_name}.rxml"
+  end
+
   def self.method_missing name
     options[name.to_s]
   end
