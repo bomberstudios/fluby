@@ -118,25 +118,6 @@ EOF
     %x(touch "$HOME/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt")
   end
 
-  # these functions are used by script/generate
-  # def self.generate(type, name, options={})
-  #   target_path = File.dirname(name.split(".").join("/").to_s)
-  #   target_file = name.split(".").join("/") + ".as".to_s
-  #   if File.exist?(target_file)
-  #     log "alert", "File #{target_file} already exists!"
-  #     raise RuntimeError
-  #   end
-  #   FileUtils.mkdir_p target_path unless File.exist? target_path
-  #   @classpath = target_path.split("/").join(".")
-  #   @classname = name.split(".").last
-  #   options = options.map { |i| i = i.split(":") } unless options == {}
-  #   @opts = options
-  #   File.open(target_file,"w") do |file|
-  #     file << ERB.new(File.read("#{template_path}/generators/#{type}")).result(binding)
-  #   end
-  #   log "create", "#{target_path}/#{@classname}.as"
-  # end
-
   def self.available_templates
     return Dir["#{template_path}/generators/**"]
   end
