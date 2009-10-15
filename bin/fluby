@@ -3,13 +3,23 @@
 # Handcrafted with love by bomberstudios & mamuso
 # 2008-03-16
 
+actions = ['build','release','create','generate']
+
 require File.dirname(__FILE__) + '/../lib/fluby.rb'
 
-# Display help
-if ARGV[0].nil?
-  puts "Fluby v#{Fluby::VERSION}"
+case ARGV.size
+when 0
+  puts "Fluby v#{Fluby.version}"
   puts "Usage: fluby project_name"
   exit
+when 1
+  action = ARGV[0]
+  if actions.include? action
+    Fluby.send(action)
+  else
+    Fluby.create_project(ARGV[0])
+  end
+else
+  action = ARGV[0]
+  Fluby.send(action,ARGV[1..ARGV.size-1])
 end
-
-Fluby.create_project(ARGV[0])

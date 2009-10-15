@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fluby}
-  s.version = "0.7.0"
+  s.version = "0.7.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ale Muñoz"]
-  s.date = %q{2009-10-14}
+  s.date = %q{2009-10-15}
   s.default_executable = %q{fluby}
   s.description = %q{A simple command to create and compile an ActionScript project for MTASC + SWFMILL + Rake}
   s.email = %q{bomberstudios@gmail.com}
@@ -18,26 +18,20 @@ Gem::Specification.new do |s|
     "README.mdown"
   ]
   s.files = [
-    ".gitignore",
-     "Changelog",
-     "README.mdown",
-     "Rakefile",
+    "README.mdown",
      "VERSION",
      "bin/fluby",
-     "fluby.gemspec",
      "lib/fluby.rb",
      "lib/templates/ASClass.as",
      "lib/templates/README",
      "lib/templates/Rakefile",
-     "lib/templates/generate",
+     "lib/templates/config.yml",
      "lib/templates/generators/class",
      "lib/templates/generators/delegate",
      "lib/templates/generators/xml_loader",
      "lib/templates/index.rhtml",
      "lib/templates/project.rxml",
-     "lib/templates/swfobject.js",
-     "test/helper.rb",
-     "test/test_fluby.rb"
+     "lib/templates/swfobject.js"
   ]
   s.homepage = %q{http://github.com/bomberstudios/fluby}
   s.rdoc_options = ["--charset=UTF-8"]

@@ -13,7 +13,7 @@ class TestFluby < Test::Unit::TestCase
   end
 
   def test_fluby_is_loaded
-    assert_not_nil Fluby::VERSION
+    assert_not_nil Fluby.version
     assert_equal "fluby", Fluby::NAME
   end
 
@@ -41,58 +41,8 @@ class TestFluby < Test::Unit::TestCase
 
   def test_compilation
     in_folder(PROJECT) do
-      %x(rake compile)
+      %x(fluby build)
       assert File.exist?("deploy/#{PROJECT}.swf"), "Compilation failed. Have you installed mtasc and swfmill?"
-    end
-  end
-
-  def test_generator
-    in_folder(PROJECT) do
-      Fluby.available_templates.each do |tpl|
-        Fluby.generate tpl, "com.bomberstudios.#{tpl}"
-        assert File.exist?("com/bomberstudios/#{tpl}.as"), "Error generating #{tpl}"
-      end
-    end
-  end
-  def test_generator_with_single_option
-    in_folder(PROJECT) do
-      Fluby.generate "class", "com.bomberstudios.ClassTest", "foo:String"
-      assert File.exist?("com/bomberstudios/ClassTest.as")
-      assert_not_nil File.read("com/bomberstudios/ClassTest.as").match("var foo:String;")
-    end
-  end
-  def test_generator_with_multiple_options
-    in_folder(PROJECT) do
-      Fluby.generate "class", "com.bomberstudios.ClassTest", ["foo:String", "bar:XML"]
-      assert File.exist?("com/bomberstudios/ClassTest.as")
-      assert_not_nil File.read("com/bomberstudios/ClassTest.as").match("var foo:String;")
-      assert_not_nil File.read("com/bomberstudios/ClassTest.as").match("var bar:XML;")
-    end
-  end
-  def test_generator_with_multiple_options_via_commandline
-    in_folder(PROJECT) do
-      %x(script/generate class com.bomberstudios.Car make:String model:String year:Number)
-      assert File.exist?("com/bomberstudios/Car.as")
-      assert_not_nil File.read("com/bomberstudios/Car.as").match("var make:String;")
-      assert_not_nil File.read("com/bomberstudios/Car.as").match("var model:String;")
-      assert_not_nil File.read("com/bomberstudios/Car.as").match("var year:Number;")
-    end
-  end
-  def test_error_creating_existing_template
-    in_folder(PROJECT) do
-      assert_raise RuntimeError do
-        Fluby.generate "class", "com.bomberstudios.ClassTest", ["foo:String", "bar:XML"]
-        Fluby.generate "class", "com.bomberstudios.ClassTest", ["foo:String", "bar:XML"]
-      end
-    end
-  end
-
-  def test_available_templates
-    assert_equal Dir["lib/templates/generators/*"].size, Fluby.available_templates.size, "Template count mismatch"
-    in_folder PROJECT do
-      templates = %x(script/generate)
-      tpl_list = Fluby.available_templates.join("\n\t")
-      assert_equal "Usage: script/generate type classpath [options]\nwhere type is one of\n\t#{tpl_list}\n", templates
     end
   end
 

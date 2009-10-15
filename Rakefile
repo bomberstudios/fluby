@@ -16,6 +16,7 @@ begin
     gemspec.homepage = "http://github.com/bomberstudios/fluby"
     gemspec.authors = ["Ale Muñoz"]
     gemspec.rubyforge_project     = 'fluby'
+    gemspec.files = Dir.glob(["README.mdown","VERSION","bin/**","lib/**/**"])
   end
   Jeweler::GemcutterTasks.new
   # release with: $ rake gemcutter:release
