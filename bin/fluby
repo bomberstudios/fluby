@@ -9,9 +9,13 @@ require File.dirname(__FILE__) + '/../lib/fluby.rb'
 
 case ARGV.size
 when 0
-  puts "Fluby v#{Fluby.version}"
-  puts "Usage: fluby project_name"
-  exit
+  if Fluby.is_a_project?
+    Fluby.build
+  else
+    puts "Fluby v#{Fluby.version}"
+    puts "Usage: fluby project_name"
+    exit
+  end
 when 1
   action = ARGV[0]
   if actions.include? action
