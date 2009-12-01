@@ -23,11 +23,12 @@ To create a new project:
 To compile your brand new project:
 
     cd ProjectName
-    rake
+    fluby
 
 That should generate a 'ProjectName.swf' file on the 'deploy' folder. The SWF file is debug-enabled (i.e: you can see the trace() output if you have a debug Flash Player). If you want to release your project without debug information, run
 
-    rake release
+    fluby release
+
 
 
 ### More Rake tasks
