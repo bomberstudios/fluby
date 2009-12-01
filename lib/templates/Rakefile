@@ -1,4 +1,3 @@
-require "fluby"
 require 'rake/packagetask'
 
 Rake::PackageTask.new("<%= @project_name %>", :noversion) do |p|
@@ -9,7 +8,6 @@ Rake::PackageTask.new("<%= @project_name %>", :noversion) do |p|
 end
 
 task :monitor do
-  command = "rake"
   files = {}
 
   Dir["*.as","*.rxml","*.rhtml","Rakefile"].each { |file|
@@ -24,7 +22,7 @@ task :monitor do
     if changed_file
       files[changed_file] = File.mtime(changed_file)
       puts "=> #{changed_file} changed, running #{command}"
-      system(command)
+      system('fluby')
       puts "=> done"
     end
   end
@@ -36,13 +34,13 @@ end
 
 desc "Build <%= @project_name %>"
 task :build do
-  system('fluby build')
+  system('fluby')
 end
 
 desc "Build a release version of <%= @project_name %> (with trace() disabled)"
 task :release do
   system('fluby release')
-  system('rake pack')
+  system('rake package')
 end
 
 task :default => [:test]
