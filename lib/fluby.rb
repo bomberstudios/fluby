@@ -1,7 +1,5 @@
-require "rubygems"
 require "erb"
 require "yaml"
-# require "rake"
 require "fileutils"
 
 module Fluby
