@@ -42,7 +42,7 @@ end
 desc "Build a release version of <%= @project_name %> (with trace() disabled)"
 task :release do
   system('fluby release')
-  system('fluby pack')
+  system('rake pack')
 end
 
 task :default => [:test]
